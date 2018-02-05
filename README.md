@@ -1,4 +1,4 @@
 # dots
 Dots file for my setup
 
-#WIP COZ IM LAZY BASTARD
+# WIP COZ IM LAZY BASTARD
