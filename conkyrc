@@ -1,0 +1,147 @@
+conky.config = {
+-- Use Xft?
+	use_xft = true,
+	font = 'AvantGarde:size=9',
+
+-- Update interval in seconds
+	update_interval = 1,
+
+-- This is the number of times Conky will update before quitting.
+-- Set to zero to run forever.
+	total_run_times = 0,
+
+-- Create own window instead of using desktop (required in nautilus)
+	own_window = true,
+	own_window_transparent = true,
+	own_window_type = 'desktop',
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
+	own_window_colour = '#000000',
+
+
+-- Use double buffering (reduces flicker, may not work for everyone)
+	double_buffer = true,
+
+-- Minimum size of text area
+	minimum_width = 768, minimum_height = 5,
+
+	maximum_width = 275,
+
+-- Draw shades?
+	draw_shades = false,
+
+-- Draw outlines?
+	draw_outline = false,
+
+-- Draw borders around text
+	draw_borders = false,
+
+-- Stippled borders?
+	stippled_borders = 0,
+
+-- border margins
+--border_margin 5
+
+-- Boolean value, if true, Conky will be forked to background when started.
+	background = true,
+
+-- border width
+	border_width = 1,
+
+-- Default colors and also border colors
+--default_color 303030
+--default_shade_color white
+--default_outline_color black
+--own_window_colour 262524
+
+-- Text alignment, other possible values are commented
+alignment = 'top_left',
+--alignment = 'top_right',
+--alignment bottom_left
+--alignment bottom_right
+
+--Ovo je podesavano za HDMI 1080p, ako ti ne odgovara, vrati bottm_right
+
+-- Gap between borders of screen and text
+-- same thing as passing -x at command line
+	gap_x = 10,
+	gap_y = 100,
+
+--Ovo je podesavano za HDMI 1080p, vrati na 100 (valjda je to ok.)
+
+-- Subtract file system buffers from used memory?
+	no_buffers = true,
+
+-- set to yes if you want all text to be in uppercase
+	uppercase = false,
+
+-- number of cpu samples to average
+-- set to 1 to disable averaging
+	cpu_avg_samples = 2,
+
+-- number of net samples to average
+-- set to 1 to disable averaging
+	net_avg_samples = 2,
+
+-- Force UTF8? note that UTF8 support required XFT
+	override_utf8_locale = true,
+
+-- Add spaces to keep things from moving about?  This only affects certain objects.
+	use_spacer = 'none',
+--#emailline
+--${color 9AB7DC}${font}Email:${color a4a4a4}${alignr}${execi 300 perl ~/scripts/gmail.pl n} new
+
+--COLORS
+--	color1 = '#000000',
+--	color3 = '#000000',
+--	color2 = '#000000',
+--	color2 = '#00FF00',
+--	color1 = '#a4a4a4',
+--color2 '668ABF'
+--	color3 = '#968300',
+
+
+color1 ='#A8A8A8',
+color2 ='#DAA520',
+color3 ='#589CA3',
+
+
+--Email:
+--${pop3_unseen  **SERVER NAME**  **USERNAME**  **PASSWORD**} new messages
+
+
+
+};
+
+conky.text = [[
+${color1}${hr 1}
+${color1}${alignc 20}${font DotMatrix:size=14}${time %H:%M:%S}${font}${color1}
+${hr 1}
+|
+${color3}o ${color1}--${color3} o${color2} DATE
+${color1}|${offset 2}    ${color1}|${color1}
+|     ${color3}o ${color1}---${color3} o${color2} Day:${color1}................  ${time %A}
+|             ${color3} o${color2} Date:${color1}..............  ${time %d/%m/%y }
+|
+${color3}o ${color1}--${color3} o${color2} SYS${color1}
+|${offset 2}    ${color1}|
+|     ${color3}o ${color1}---${color3} o${color2} OS:${color1}...................   ${execi 1000 cat /etc/lsb-release | grep "DISTRIB_ID" | cut -c 12-19}
+|             ${color3} o${color2} Kernel:${color1}............  ${offset 1}$kernel
+|             ${color3} o${color2} Up:${color1}...................  ${offset 1}$uptime
+|             ${color3} o${color2} Ram:${color1}................  $mem/ $memmax
+|             ${color3} o${color2} Model:${color1}............   ${execi 
+1000 cat /proc/cpuinfo | grep 'model name' | uniq | cut -c 32-49}
+|             ${color3} o${color2} Battery:${color1}............  ${battery_percent}%
+|             ${color3} o${color2} Time left:${color1}..........  ${battery_time}
+|
+${color3}o ${color1}--${color3} o${color2} DISK${color1}
+|${offset 2}    ${color1}|
+|     ${color3}o ${color1}---${color3} o${color2} Root:${color1}................  ${fs_used /}/ ${fs_size /}
+|             ${color3} o${color2} Home:${color1}.............  ${fs_used /home}/ ${fs_size /home}
+|
+${color3}o ${color1}--${color3} o${color2} NET${color1}
+${offset 2}       ${color1}|
+        ${color3}o ${color1}---${color3} o${color2} Public:${color1}...................  ${execi 300 wget -qO- http://ipecho.net/plain ; echo}
+               ${color3} o${color2} Local:${color1}....................  ${addr wlp3s0}
+               ${color3} o${color2} Up_eth:${color1}......................  ${upspeed eth0}/s
+               ${color3} o${color2} Down_eth:${color1}................  ${downspeed eth0}/s
+]];
