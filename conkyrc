@@ -64,7 +64,7 @@ alignment = 'top_left',
 -- Gap between borders of screen and text
 -- same thing as passing -x at command line
 	gap_x = 10,
-	gap_y = 100,
+	gap_y = 150,
 
 --Ovo je podesavano za HDMI 1080p, vrati na 100 (valjda je to ok.)
 
@@ -128,9 +128,6 @@ ${color3}o ${color1}--${color3} o${color2} SYS${color1}
 |             ${color3} o${color2} Kernel:${color1}............  ${offset 1}$kernel
 |             ${color3} o${color2} Up:${color1}...................  ${offset 1}$uptime
 |             ${color3} o${color2} Ram:${color1}................  $mem/ $memmax
-|             ${color3} o${color2} Model:${color1}............   ${execi 
-1000 cat /proc/cpuinfo | grep 'model name' | uniq | cut -c 32-49}
-|             ${color3} o${color2} Battery:${color1}............  ${battery_percent}%
 |             ${color3} o${color2} Time left:${color1}..........  ${battery_time}
 |
 ${color3}o ${color1}--${color3} o${color2} DISK${color1}
@@ -139,9 +136,17 @@ ${color3}o ${color1}--${color3} o${color2} DISK${color1}
 |             ${color3} o${color2} Home:${color1}.............  ${fs_used /home}/ ${fs_size /home}
 |
 ${color3}o ${color1}--${color3} o${color2} NET${color1}
-${offset 2}       ${color1}|
-        ${color3}o ${color1}---${color3} o${color2} Public:${color1}...................  ${execi 300 wget -qO- http://ipecho.net/plain ; echo}
-               ${color3} o${color2} Local:${color1}....................  ${addr wlp3s0}
-               ${color3} o${color2} Up_eth:${color1}......................  ${upspeed eth0}/s
-               ${color3} o${color2} Down_eth:${color1}................  ${downspeed eth0}/s
+|${offset 2}    ${color1}|
+|     ${color3}o ${color1}---${color3} o${color2} Public:${color1}...................  ${execi 300 curl -s http://ipecho.net/plain ; echo}
+|             ${color3} o${color2} Local:${color1}....................  ${addr wlp3s0}
+|             ${color3} o${color2} Up_wl:${color1}......................  ${upspeed wlp3s0}/s
+|             ${color3} o${color2} Down_wl:${color1}................  ${downspeed wlp3s0}/s
+|
+${color3}o ${color1}--${color3} o${color2} SERVICES${color1}
+${offset 2}      ${color1}|
+       ${color3}o ${color1}---${color3} o${color2} SMB:${color1}............................  ${execi 5 systemctl is-active smb.service  }
+               ${color3} o${color2} VPN-NL:${color1}.....................  ${execi 5 systemctl is-active openvpn-client@Netherlands.service  }
+               ${color3} o${color2} VPN-UNI:${color1}...................  ${execi 5 systemctl is-active openvpn-client@unity  }
+               ${color3} o${color2} SSH:${color1}.............................  ${execi 5 systemctl is-active sshd.service  }
+                 
 ]];
