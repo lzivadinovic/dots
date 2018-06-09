@@ -23,14 +23,6 @@ let g:indentLine_color_term = 34
 " ####### END MY PLUGINS ###########
 
 
-
-
-
-
-
-
-
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
