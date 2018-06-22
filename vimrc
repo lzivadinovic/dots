@@ -18,15 +18,14 @@ Plugin 'scrooloose/nerdtree' " file tree
 Plugin 'itchyny/lightline.vim' " new status menu
 Plugin 'Yggdroot/indentLine' " for displaying indents
 let g:indentLine_color_term = 34 
-" Plugin 'ajmwagar/vim-deus' " Clr scheme
 
 " ####### END MY PLUGINS ###########
 
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-
-colors deus
+map <F7> :tabn<CR>
+map <F8> :tabp<CR>
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeWinSize=32
 let NERDTreeWinPos="right"
@@ -64,7 +63,6 @@ let NERDTreeAutoDeleteBuffer=1
  
 " Enable syntax highlighting
 syntax on
- 
  
 "------------------------------------------------------------
 " Must have options {{{1
