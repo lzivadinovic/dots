@@ -17,6 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree' " file tree
 Plugin 'itchyny/lightline.vim' " new status menu
 Plugin 'Yggdroot/indentLine' " for displaying indents
+
 let g:indentLine_color_term = 34 
 
 " ####### END MY PLUGINS ###########
@@ -24,9 +25,32 @@ let g:indentLine_color_term = 34
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-map <F7> :tabn<CR>
-map <F8> :tabp<CR>
-map <F2> :NERDTreeToggle<CR>
+
+" ####### BINDS ####################
+
+" tabing
+
+map <F7> :tabp<CR> " move to previous tab
+map <F8> :tabn<CR> " move ot next tab
+map <F3> :tabnew<CR> " think about this
+
+
+" nerdtree toogle
+map <F2> :NERDTreeToggle<CR> 
+" Map Y to act like D and C, i.e. to yank until EOL
+map Y $y
+" Map <C-L> (redraw screen) to also turn off search highlighting
+nnoremap <C-L> :nohl<CR><C-L>
+
+" ####### My shit ##########
+
+
+set colorcolumn=80
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/
+
+
+
 let NERDTreeWinSize=32
 let NERDTreeWinPos="right"
 let NERDTreeShowHidden=0
@@ -98,6 +122,12 @@ set showcmd
  
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
 " mapping of <C-L> below)
+ 
+"------------------------------------------------------------
+
+ 
+
+"------------------------------------------------------------
 set hlsearch
  
 " Modelines have historically been a source of security vulnerabilities. As
@@ -132,9 +162,9 @@ set nostartofline
  
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-set textwidth=79
+set textwidth=0
 set ruler
-
+set wrap " Allow text to be wraped but does not insert new line symbol
 
 set background=dark
 " Always display the status line, even if only one window is displayed
@@ -184,18 +214,8 @@ set expandtab
 " four characters wide.
 "set shiftwidth=4
 "set tabstop=4
- 
- 
-"------------------------------------------------------------
-" Mappings {{{1
-"
-" Useful mappings
- 
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-" which is the default
-map Y y$
- 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
-"------------------------------------------------------------
+
+" get red line on 80 char line
+
+
+
