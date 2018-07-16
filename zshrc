@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=/opt/mpich/bin:$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/lazar/.oh-my-zsh
@@ -69,6 +69,7 @@ plugins=(
   nyan
   pip
   vagrant
+  pass
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -84,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vi'
 else
-  export EDITOR='nvim'
+  export EDITOR='vim'
 fi
 
 # Compilation flags
@@ -93,17 +94,6 @@ fi
 # ssh
 export SSH_KEY_PATH="~/.ssh/id_rsa"
 
-export QBIS_DEV_KEY="~/.ssh/qbis-dev"
-export QBIS_PLATFORM_KEY="~/.ssh/qbis-platform.pem"
-
-function ssh_qbis_dev () {
-  ssh -i ${QBIS_DEV_KEY} ubuntu@${1}
-}
-
-function ssh_qbis_platform () {
-  echo $1
-  ssh -i ${QBIS_PLATFORM_KEY} ubuntu@${1}
-}
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -112,27 +102,45 @@ function ssh_qbis_platform () {
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /home/lazar/mongoose/bin/activate
-
-
-IDL_STARTUP=/home/lazar/startup_f.pro
-. /home/lazar/IDL/idl/bin/idl_setup.bash
 
 alias open="exo-open"
+alias clc="clear"
+alias gg="git log --oneline --decorate --all --graph"
 
 #This is USB_MODESWITCH for huawei gsm modem if udev rules doesnt trigger
 # sudo usb_modeswitch --verbose -J -v 12d1 -p 14fe
 
-alias stop_vpn="sudo systemctl stop openvpn-client@Netherlands.service"
-alias start_vpn="sudo systemctl start openvpn-client@Netherlands.service"
-alias gg="git log --oneline --decorate --all --graph"
-alias clc="clear"
-alias nano="nvim"
+. /home/lazar/mongoose/bin/activate
+eval 
+fuck () {
+    TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+    export TF_ALIAS=fuck;
+    export TF_SHELL_ALIASES=$(alias);
+    export TF_HISTORY="$(fc -ln -10)";
+    export PYTHONIOENCODING=utf-8;
+    TF_CMD=$(
+        thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
+    ) && eval $TF_CMD;
+    unset TF_HISTORY;
+    export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+    test -n "$TF_CMD" && print -s $TF_CMD
+}
+source /home/lazar/mongoose/bin/aws_zsh_completer.sh
+
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+alias unity_vpn_start="sudo systemctl start openvpn-client@unity"
+alias unity_vpn_stop="sudo systemctl stop openvpn-client@unity"
+alias unity_vpn_status="sudo systemctl status openvpn-client@unity"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/vault vault
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 
-
-eval $(thefuck --alias)
+export AWS_PROFILE=bc
+alias did="vim +'normal Go' +'r!date' ~/did.txt"
