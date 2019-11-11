@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set encoding=UTF-8
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -17,12 +18,32 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree' " file tree
 Plugin 'itchyny/lightline.vim' " new status menu
 Plugin 'Yggdroot/indentLine' " for displaying indents
+Plugin 'fatih/vim-go' 
+Plugin 'othree/xml.vim' " HTML and XML plugin
+Plugin 'mattn/emmet-vim' " super html shit
+Plugin 'airblade/vim-gitgutter'
+Plugin 'lervag/vimtex' " plugin for latex
+
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+
 
 let g:indentLine_color_term = 34 
 
 " ####### END MY PLUGINS ###########
-
-
+"
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -30,9 +51,9 @@ filetype plugin indent on    " required
 
 " tabing
 
-map <F7> :tabp<CR> " move to previous tab
-map <F8> :tabn<CR> " move ot next tab
-map <F3> :tabnew<CR> " think about this
+noremap <F7> :tabp<CR> " move to previous tab
+noremap <F8> :tabn<CR> " move ot next tab
+noremap <c-n> :tabnew<CR> " think about this
 
 
 " nerdtree toogle
@@ -196,7 +217,7 @@ set number relativenumber
 set notimeout ttimeout ttimeoutlen=200
  
 " Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
+set pastetoggle=<F12>
  
  
 "------------------------------------------------------------
@@ -218,4 +239,12 @@ set expandtab
 " get red line on 80 char line
 
 
+" autostart nerdrtre
+autocmd VimEnter * NERDTree
+" Switch to open pane, not nerdtree
+autocmd VimEnter * wincmd w
 
+" default splits below and right
+set splitbelow
+set splitright
+set incsearch
