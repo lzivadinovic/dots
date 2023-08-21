@@ -23,6 +23,7 @@ Plugin 'othree/xml.vim' " HTML and XML plugin
 Plugin 'mattn/emmet-vim' " super html shit
 Plugin 'airblade/vim-gitgutter'
 Plugin 'lervag/vimtex' " plugin for latex
+Plugin 'aserebryakov/vim-todo-lists' " todo plugin
 
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
@@ -70,6 +71,8 @@ set colorcolumn=80
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/
 
+" vim todo, dont move at end
+let g:VimTodoListsMoveItems = 0
 
 
 let NERDTreeWinSize=32
@@ -227,9 +230,16 @@ set pastetoggle=<F12>
  
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+
 set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set showtabline=2
+
+" set shiftwidth=4
+" set softtabstop=4
+" set expandtab
  
 " Indentation settings for using hard tabs for indent. Display tabs as
 " four characters wide.
@@ -248,3 +258,17 @@ autocmd VimEnter * wincmd w
 set splitbelow
 set splitright
 set incsearch
+
+
+
+" Emmet options {{{
+let g:user_emmet_settings = {
+\  'php': {
+\    'extends': 'html',
+\    'snippets': {
+\      'php': "<?php\n${cursor}\n?>",
+\      'vd': "var_dump(${cursor});",
+\      'ec': "echo(${cursor});",
+\    }
+\  }
+\}
